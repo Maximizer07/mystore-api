@@ -7,7 +7,6 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

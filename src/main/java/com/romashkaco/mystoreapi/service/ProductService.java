@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class ProductService {
     private ProductRepository productRepository;
-    private final AtomicLong idCounter = new AtomicLong(1);
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -30,20 +27,17 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
-        product.setId(idCounter.getAndIncrement());
-        productRepository.save(product);
-        return product;
+        return productRepository.save(product);
     }
 
     public Product updateProduct(Long id, Product updatedProduct) {
         Product existingProduct = getProductById(id);
         updatedProduct.setId(id);
-        productRepository.update(updatedProduct);
-        return updatedProduct;
+        return productRepository.save(updatedProduct);
     }
 
     public void deleteProduct(Long id) {
-        getProductById(id);
-        productRepository.deleteById(id);
+        Product product = getProductById(id);
+        productRepository.delete(product);
     }
 }
