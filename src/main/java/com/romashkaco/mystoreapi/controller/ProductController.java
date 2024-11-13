@@ -1,17 +1,20 @@
 package com.romashkaco.mystoreapi.controller;
 
+import com.romashkaco.mystoreapi.filter.ProductFilterDTO;
 import com.romashkaco.mystoreapi.model.Product;
 import com.romashkaco.mystoreapi.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
+@Validated
 public class ProductController {
     private ProductService productService;
 
@@ -21,8 +24,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public ResponseEntity<List<Product>> getAllProducts(@Valid ProductFilterDTO filterDTO) {
+        List<Product> products = productService.getProducts(filterDTO);
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/{id}")

@@ -3,6 +3,7 @@ package com.romashkaco.mystoreapi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.romashkaco.mystoreapi.controller.ProductController;
 import com.romashkaco.mystoreapi.exception.ProductNotFoundException;
+import com.romashkaco.mystoreapi.filter.ProductFilterDTO;
 import com.romashkaco.mystoreapi.model.Product;
 import com.romashkaco.mystoreapi.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +40,8 @@ public class ProductControllerTest {
 
     @Test
     public void testGetAllProducts() throws Exception {
-        when(productService.getAllProducts()).thenReturn(Collections.singletonList(sampleProduct));
+        ProductFilterDTO filterDTO = new ProductFilterDTO(); // Можно настроить фильтры, если необходимо
+        when(productService.getProducts(any(ProductFilterDTO.class))).thenReturn(Collections.singletonList(sampleProduct));
 
         mockMvc.perform(get("/api/product"))
                 .andExpect(status().isOk())
