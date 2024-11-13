@@ -66,4 +66,12 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    @ExceptionHandler(InvalidSaleRequestException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidSaleRequest(InvalidSaleRequestException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Invalid Sale Request");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }

@@ -4,6 +4,7 @@ import com.romashkaco.mystoreapi.exception.ProductNotFoundException;
 import com.romashkaco.mystoreapi.filter.ProductFilterDTO;
 import com.romashkaco.mystoreapi.model.Product;
 import com.romashkaco.mystoreapi.repository.ProductRepository;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -88,4 +90,5 @@ public class ProductService {
         Product product = getProductById(id);
         productRepository.delete(product);
     }
+
 }
